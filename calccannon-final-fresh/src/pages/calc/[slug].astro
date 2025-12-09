@@ -1,0 +1,54 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+const { slug } = Astro.params;
+const defPath = path.resolve('./generated/pages', slug!, 'def.json');
+if (!fs.existsSync(defPath)) {
+  throw new Error('Calculator not found');
+}
+const def = JSON.parse(fs.readFileSync(defPath,'utf8'));
+const site = JSON.parse(fs.readFileSync('./config/site.json','utf8'));
+const title = `${def.title} | ${site.brand}`;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="description" content={`Fast ${def.title} with explanation and examples.`} />
+  </head>
+  <body>
+    <header><a href="/">← {site.brand}</a></header>
+    <main>
+      <h1>{def.title}</h1>
+      <form id="calc">
+        {def.params.map((p:any)=> (
+          <label>
+            {p.label}<br/>
+            <input name={p.key} type={p.type || 'number'} step={p.step ?? 'any'} min={p.min ?? undefined} max={p.max ?? undefined} />
+          </label>
+        ))}
+      </form>
+      <h3>Result</h3>
+      <pre id="result">Enter values…</pre>
+      <section id="pro" class="pro-cta"></section>
+    </main>
+    <script type="module">
+      import { setupProUnlock } from '/pro-unlock.js';
+      const def = JSON.parse({JSON.stringify(def)});
+      function compute(){
+        const form = document.getElementById('calc');
+        const data = Object.fromEntries(new FormData(form).entries());
+        const num = Object.fromEntries(Object.entries(data).map(([k,v])=>[k, Number(v || 0)]));
+        const fn = new Function(...def.params.map((p:any)=>p.key), def.formula_js + '\nreturn result || { } ;');
+        let out;
+        try { out = fn(...def.params.map((p:any)=> num[p.key] )); }
+        catch(e){ out = { error: String(e) }; }
+        document.getElementById('result').textContent = JSON.stringify(out, null, 2);
+        return out;
+      }
+      document.getElementById('calc').addEventListener('input', compute);
+      compute();
+      setupProUnlock();
+    </script>
+  </body>
+</html>

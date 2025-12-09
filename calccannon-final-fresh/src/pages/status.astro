@@ -1,0 +1,22 @@
+---
+import fs from 'node:fs';
+const site = JSON.parse(fs.readFileSync('./config/site.json','utf8'));
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Status | {site.brand}</title>
+  </head>
+  <body>
+    <main>
+      <h1>Status</h1>
+      <ul>
+        <li>Brand: {site.brand}</li>
+        <li>Base URL: {site.seo.baseUrl}</li>
+        <li>Pro price (USD): {site.pricing.proUSD}</li>
+        <li>Cash App: cash.app/{site.cashApp.cashtag}</li>
+        <li>Wallet (public): {site.wallet.solanaAddress}</li>
+      </ul>
+    </main>
+  </body>
+</html>

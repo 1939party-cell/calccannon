@@ -1,0 +1,21 @@
+{
+  "brand": "CalcCannon",
+  "wallet": {
+    "solanaAddress": "5GpN4JNYp7ruijrYL9sYtzcj965exn2pensyQT2WaPmY",
+    "mints": {
+      "SOL": "native",
+      "USDC": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    }
+  },
+  "cashApp": {
+    "cashtag": "maddabbs20"
+  },
+  "pricing": {
+    "proUSD": 3.0,
+    "ttlHours": 12
+  },
+  "seo": {
+    "baseUrl": "https://<project>.pages.dev",
+    "siteDescription": "200+ fast calculators for finance, fitness, DIY, conversions."
+  }
+}

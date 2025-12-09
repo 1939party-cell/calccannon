@@ -1,0 +1,8 @@
+id: unit-feet-meters
+title: Feet ↔ Meters Converter
+category: conversions
+params:
+  - { key: feet, label: Feet, type: number, min: 0, step: 0.01 }
+formula_js: |
+  const meters = feet * 0.3048;
+  const result = {{ meters }};

@@ -1,0 +1,33 @@
+---
+import fs from 'node:fs';
+const manifest = JSON.parse(fs.readFileSync('./generated/calculators.json','utf8'));
+const site = JSON.parse(fs.readFileSync('./config/site.json','utf8'));
+const groups = manifest.reduce((acc, m) => {
+  acc[m.category] = acc[m.category] || [];
+  acc[m.category].push(m);
+  return acc;
+}, {});
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{site.brand}</title>
+    <meta name="description" content={site.seo.siteDescription} />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+  </head>
+  <body>
+    <header><h1>{site.brand}</h1></header>
+    <p>Tip via Cash App: <a href={`https://cash.app/${site.cashApp.cashtag}`} target="_blank" rel="noopener">cash.app/{site.cashApp.cashtag}</a></p>
+    <main>
+      {Object.entries(groups).map(([cat, items]) => (
+        <section>
+          <h2>{cat}</h2>
+          <ul>
+            {items.map((m:any) => <li><a href={`/calc/${m.id}`}>{m.title}</a></li>)}
+          </ul>
+        </section>
+      ))}
+    </main>
+    <footer><a href="/status">Status</a></footer>
+  </body>
+</html>

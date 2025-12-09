@@ -1,0 +1,14 @@
+name = "calccannon"
+compatibility_date = "2025-01-01"
+
+[site]
+bucket = "./dist"
+
+[[kv_namespaces]]
+binding = "PAYMENTS"
+id = "REPLACE_WITH_KV_ID"
+
+[vars]
+RPC_SOLANA = "https://api.mainnet-beta.solana.com"
+SITE_CONFIG = ""
+JWT_TTL_HOURS = "12"
