@@ -6,13 +6,13 @@
   "engines": { "node": ">=20 <21" },
   "scripts": {
     "dev": "astro dev",
-    "build": "npx ts-node ./scripts/build-calcs.ts && npx ts-node ./scripts/build-sitemap.ts && npx ts-node ./scripts/build-rss.ts && npx ts-node ./scripts/copy-config.ts && astro build",
+    "build": "npx tsx ./scripts/build-calcs.ts && npx tsx ./scripts/build-sitemap.ts && npx tsx ./scripts/build-rss.ts && npx tsx ./scripts/copy-config.ts && npx astro build",
     "preview": "astro preview"
   },
   "devDependencies": {
     "astro": "^4.12.0",
     "typescript": "^5.6.3",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.0",
     "js-yaml": "^4.1.0"
   }
 }
